@@ -9,8 +9,8 @@
 	<title>Data Collector</title>
 	<style>
 		.box {
-			width: 50px;
-			height: 50px;
+			width: 5vw;
+			height: 5vh;
 			position: fixed;
 			top: 3px;
 			left: 74px;
@@ -18,16 +18,16 @@
 			border-radius: 10px;
 		}
 
-		body{
+		body {
 			width: 100vw;
 			height: 100vh;
 		}
 
-		#stop{
-			display:none;
+		#stop {
+			display: none;
 		}
-		
-		.custom-border-radius{
+
+		.custom-border-radius {
 			border-top-left-radius: 0px;
 			border-top-right-radius: 0px;
 			border-bottom-left-radius: 10px;
@@ -35,7 +35,7 @@
 			border-top: none;
 		}
 
-		.btn{
+		.btn {
 			width: 15vw;
 		}
 	</style>
@@ -44,20 +44,16 @@
 	<div class="container-fluid">
 		<div class="row align-items-center justify-content-between">
 			<div id="score" class="col-auto">
-				<h5 class="text-secondary">Score: 0</h5>
+				<h5 class="text-secondary">Score: <span id="score">0</span></h5>
 			</div>
 			<div class="col-auto">
 				<button id="start" class="btn btn-sm btn-outline-info custom-border-radius">Start</button>
 				<button id="stop" class="btn btn-sm btn-outline-danger custom-border-radius">Stop</button>
 			</div>
 			<div id="score" class="col-auto">
-				<h5 class="text-secondary">Accuracy: 0%</h5>
+				<h5 class="text-secondary">Accuracy: <span id="accuracy">0</span>%</h5>
 			</div>
 		</div>
-		<div class="row align-items-center justify-content-center">
-			
-		</div>
-		
 	</div>
 </body>
 </html>
@@ -70,11 +66,8 @@
 
 		function addBox() {
 			let x = (Math.random() * (window.innerWidth - 50)).toFixed(0);
-			let y = (Math.random() * (window.innerHeight - 50)).toFixed(0);
-
-			y = y < 25 ? 30 : y;
-
-			$('body').append(`<div class="box bg-info" style="left:${x}px; top:${y}px;"></div>`);
+			let y = Math.max(6, (Math.random() * (window.innerHeight - 50)).toFixed(0));
+			$('body').append(`<div class="box bg-info" style="left:${x}vw; top:${y}vh;"></div>`);
 			$('.box').fadeIn(200);
 		}
 
