@@ -70,6 +70,7 @@
 			<div class="col-auto">
 				<button id="start" class="btn btn-sm btn-outline-info custom-border-radius">Start</button>
 				<button id="stop" class="btn btn-sm btn-outline-danger custom-border-radius">Stop</button>
+				<audio controls id="kill" src="/sounds/kill.ogg" preload="auto"/>
 			</div>
 			<div class="col text-right">
 				<h5 class="text-secondary">Accuracy: <span class="accuracy">0</span>%</h5>
@@ -120,7 +121,7 @@
 		}
 
 		$(document).on('click', '.target', function () {
-			let audio = new Audio('/Trainer/sounds/kill.ogg');
+			let audio = new Audio('/sounds/kill.ogg');
 			audio.play();
 			$(this).fadeOut(200);
 			$(this).remove();
