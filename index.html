@@ -212,8 +212,8 @@
 		});
 
 		$('body').on('mousemove', function (e) {
-			let x = Math.round(e.clientX * (1920 / window.innerWidth));
-			let y = Math.round(e.clientY * (1080 / window.innerHeight));
+			let x = Math.round(e.clientX * (1000 / window.innerWidth));
+			let y = Math.round(e.clientY * (1000 / window.innerHeight));
 
 			if (started) {
 				row.push([x, y]);
