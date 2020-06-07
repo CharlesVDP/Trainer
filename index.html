@@ -159,22 +159,18 @@
 		}
 
 		function beginChallenge() {
-			debugger;
 			$('.clock').html(60);
 			$('.clock').removeClass('d-none');
 			challengeStart = Date.now();
-			timer = setInterval(countdown, 500);
+			timer = setInterval(countdown, 100);
 		}
 
 		function countdown() {
-			debugger;
 			let elapsed = Date.now() - challengeStart;
 			if (elapsed > 60000) {
 				$('.clock').html(0);
 				$('.clock').addClass('d-none');
 				gameEnd();
-				debugger;
-				clearInterval(timer);
 			} else {
 				let remaining = Math.round(60 - elapsed / 1000);
 				$('.clock').html(remaining);
@@ -182,6 +178,7 @@
 		}
 
 		function gameEnd() {
+			clearInterval(timer);
 			updateScore(true);
 			$('#scoreboard').modal('show');
 			started = false;
