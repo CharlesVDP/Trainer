@@ -54,6 +54,14 @@
 		.clock{
 			z-index: -1;
 		}
+
+		.noselect {
+		  -webkit-touch-callout: none;
+			-webkit-user-select: none;
+			   -moz-user-select: none;
+				-ms-user-select: none;
+					user-select: none;
+		}
 	</style>
 </head>
 <body>
@@ -82,7 +90,7 @@
 	<div class="container-fluid header">
 		<div class="row align-items-center justify-content-between">
 			<div class="col text-left">
-				<h5 class="text-secondary">Hits: <span class="hits">0</span></h5>
+				<h5 class="text-secondary noselect">Hits: <span class="hits">0</span></h5>
 			</div>
 			<div class="col-auto">
 				<button id="start" class="btn btn-sm btn-outline-info custom-border-radius start">Start</button>
@@ -90,14 +98,14 @@
 				<button id="stop" class="btn btn-sm btn-outline-danger custom-border-radius">Stop</button>
 			</div>
 			<div class="col text-right">
-				<h5 class="text-secondary">Accuracy: <span class="accuracy">0</span>%</h5>
+				<h5 class="text-secondary noselect">Accuracy: <span class="accuracy">0</span>%</h5>
 			</div>
 		</div>
 	</div>
 	<div class="container-fluid canvas crosshair">
 		<div class="row align-items-center justify-content-center">
 			<div class="col-auto">
-				<h1 class="text-secondary"><span class="clock d-none">60</span></h1>
+				<h1 class="text-secondary noselect"><span class="clock d-none">60</span></h1>
 			</div>
 		</div>
 	</div>
@@ -154,7 +162,6 @@
 			$('.clock').removeClass('d-none');
 			challengeStart = Date.now();
 			timer = setInterval(countdown, 100);
-
 		}
 
 		function countdown() {
@@ -175,7 +182,7 @@
 			$('#scoreboard').modal('show');
 			started = false;
 			$('.target').remove();
-			$('#stop').fadeOut(250);
+			$('#stop').hide();
 			$('.start').fadeIn(250);
 		}
 
@@ -184,7 +191,7 @@
 			let me = $(this);
 			audio.play();
 			me.removeClass('bg-info').addClass('bg-danger');
-			me.fadeOut(200, function () {
+			me.fadeOut(10, function () {
 				me.remove();
 			});
 			hits++;
