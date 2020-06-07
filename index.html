@@ -37,6 +37,18 @@
 		.btn {
 			width: 15vw;
 		}
+
+		.crosshair {
+			cursor: url(https://charlesvdp.github.io/Trainer/crosshairs/default.png);
+		}
+
+		.header{
+			height: 5vh;
+		}
+
+		.canvas{
+			height: 95vh;
+		}
 	</style>
 </head>
 <body>
@@ -62,7 +74,7 @@
 		</div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container-fluid header">
 		<div class="row align-items-center justify-content-between">
 			<div class="col text-left">
 				<h5 class="text-secondary">Score: <span class="score">0</span></h5>
@@ -76,6 +88,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="canvas crosshair"></div>
 </body>
 </html>
 
