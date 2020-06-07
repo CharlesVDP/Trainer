@@ -21,6 +21,7 @@
 		<div class="row align-items-center justify-content-between">
 			<div class="col text-center">
 				<input id="files" type="file" accept="text/json" multiple />
+				<button id="download" type="button" class="btn btn-info">Download</button>
 			</div>
 		</div>
 	</div>
@@ -31,23 +32,32 @@
 	$(function () {
 		let data = [];
 		function readFiles() {
-			debugger;
 			let input = document.getElementById('files');
 			let files = input.files;
-			for (file in files) {
+			for (i = 0; i < files['length']; i++) {
 				const reader = new FileReader();
 				let text = '';
 				reader.addEventListener('load', (event) => {
 					text = event.target.result;
+					let json = JSON.parse(text);
+					data = data.concat(json['data']);
 				});
-				reader.readAsText(files[file]);
-				let json = JSON.parse(text);
-				data.concat(json['data']);
+				reader.readAsText(files[i]);
 			}
-			debugger;
-			return data;
+		}
+
+		function download() {
+			let json = {};
+			json['data'] = data;
+			let jsons = JSON.stringify(json);
+			var hiddenElement = document.createElement('a');
+			hiddenElement.href = 'data:text/json;charset=utf-8,' + encodeURI(jsons);
+			hiddenElement.target = '_blank';
+			hiddenElement.download = `data${Date.now()}.JSON`;
+			hiddenElement.click();
 		}
 
 		$('#files').on('change', readFiles);
+		$('#download').on('click', download);
 	})
 </script>
