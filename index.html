@@ -54,6 +54,7 @@
 
 		.clock{
 			z-index: -1;
+			display: none;
 		}
 
 		.noselect {
@@ -106,7 +107,7 @@
 	<div class="container-fluid canvas crosshair">
 		<div class="row align-items-center justify-content-center">
 			<div class="col-auto">
-				<h1 class="text-secondary noselect"><span class="clock d-none">60</span></h1>
+				<h1 class="text-secondary noselect"><span class="clock">60</span></h1>
 			</div>
 		</div>
 	</div>
@@ -160,7 +161,7 @@
 
 		function beginChallenge() {
 			$('.clock').html(60);
-			$('.clock').removeClass('d-none');
+			$('.clock').fadeIn(500);
 			challengeStart = Date.now();
 			timer = setInterval(countdown, 100);
 		}
@@ -169,7 +170,6 @@
 			let elapsed = Date.now() - challengeStart;
 			if (elapsed > 60000) {
 				$('.clock').html(0);
-				$('.clock').addClass('d-none');
 				gameEnd();
 			} else {
 				let remaining = Math.round(60 - elapsed / 1000);
@@ -184,6 +184,7 @@
 			started = false;
 			$('.target').remove();
 			$('#stop').hide();
+			$('.clock').fadeOut(500);
 			$('.start').fadeIn(250);
 		}
 
