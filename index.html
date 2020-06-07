@@ -162,14 +162,14 @@
 			$('.clock').html(60);
 			$('.clock').removeClass('d-none');
 			challengeStart = Date.now();
-			timer = setInterval(countdown, 100);
+			timer = setInterval(countdown, 500);
 		}
 
 		function countdown() {
 			let elapsed = Date.now() - challengeStart;
 			if (elapsed > 60000) {
 				$('.clock').html(0);
-				$('.clock').fadeOut(250);
+				$('.clock').addClass('d-none');
 				gameEnd();
 				clearInterval(timer);
 			} else {
@@ -263,7 +263,7 @@
 			var hiddenElement = document.createElement('a');
 			hiddenElement.href = 'data:text/json;charset=utf-8,' + encodeURI(jsons);
 			hiddenElement.target = '_blank';
-			hiddenElement.download = 'data.JSON';
+			hiddenElement.download = `data${Date.now()}.JSON`;
 			hiddenElement.click();
 		}
 	})
