@@ -159,6 +159,7 @@
 		}
 
 		function beginChallenge() {
+			debugger;
 			$('.clock').html(60);
 			$('.clock').removeClass('d-none');
 			challengeStart = Date.now();
@@ -166,11 +167,13 @@
 		}
 
 		function countdown() {
+			debugger;
 			let elapsed = Date.now() - challengeStart;
-			if (elapsed > 60000) {
+			if (elapsed > 5000) {
 				$('.clock').html(0);
 				$('.clock').addClass('d-none');
 				gameEnd();
+				debugger;
 				clearInterval(timer);
 			} else {
 				let remaining = Math.round(60 - elapsed / 1000);
