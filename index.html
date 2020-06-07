@@ -39,7 +39,7 @@
 		}
 
 		.crosshair {
-			cursor: auto;
+			cursor: crosshair;
 			cursor: url(crosshairs/default.png);
 		}
 
@@ -107,8 +107,8 @@
 
 		function spawnTarget() {
 			let x = (Math.random() * 95).toFixed(0);
-			let y = Math.max(6, (Math.random() * 95).toFixed(0));
-			$('body').append(`<div class="target bg-info" style="left:${x}vw; top:${y}vh;"></div>`);
+			let y = Math.max(10, (Math.random() * 95).toFixed(0));
+			$('body').append(`<div class="target bg-info crosshair" style="left:${x}vw; top:${y}vh;"></div>`);
 			$('.target').fadeIn(50);
 			start = Date.now();
 		}
