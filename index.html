@@ -36,7 +36,7 @@
 		}
 
 		.btn {
-			width: 15vw;
+			width: 230px;
 		}
 
 		.crosshair {
@@ -49,6 +49,10 @@
 
 		.canvas{
 			height: 95vh;
+		}
+
+		.clock{
+			z-index: -1;
 		}
 	</style>
 </head>
@@ -78,10 +82,11 @@
 	<div class="container-fluid header">
 		<div class="row align-items-center justify-content-between">
 			<div class="col text-left">
-				<h5 class="text-secondary">Score: <span class="score">0</span></h5>
+				<h5 class="text-secondary">Hits: <span class="hits">0</span></h5>
 			</div>
 			<div class="col-auto">
-				<button id="start" class="btn btn-sm btn-outline-info custom-border-radius">Start</button>
+				<button id="start" class="btn btn-sm btn-outline-info custom-border-radius start">Start</button>
+				<button id="challenge" class="btn btn-sm btn-outline-primary custom-border-radius start">Challenge</button>
 				<button id="stop" class="btn btn-sm btn-outline-danger custom-border-radius">Stop</button>
 			</div>
 			<div class="col text-right">
@@ -89,7 +94,13 @@
 			</div>
 		</div>
 	</div>
-	<div class="canvas crosshair"></div>
+	<div class="container-fluid canvas crosshair">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-auto">
+				<h1 class="text-secondary"><span class="clock d-none">60</span></h1>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
@@ -98,10 +109,12 @@
 		let started = false;
 		let data = [];
 		let row = [];
-		let hits = 1;
-		let shots = 1;
+		let hits = 0;
+		let shots = 0;
 		let score = 0;
 		let totalTtk = 0;
+		let timer;
+		let challengeStart;
 
 		let start = Date.now();
 
@@ -120,9 +133,12 @@
 			$('.misses').html(shots - hits);
 		}
 
-		function updateScore() {
-			score += 100
-			$('.score').html(Math.round(score * (hits / shots)));
+		function updateScore(showFinalScore) {
+			if (showFinalScore) {
+				$('.score').html(Math.round(score * (hits / shots)));
+			} else {
+				score += 100
+			}
 		}
 
 		function updateTimeToKill() {
@@ -131,6 +147,36 @@
 
 			let avgTtk = (totalTtk / hits).toFixed(0);
 			$('.ttk').html(avgTtk);
+		}
+
+		function beginChallenge() {
+			$('.clock').html(60);
+			$('.clock').removeClass('d-none');
+			challengeStart = Date.now();
+			timer = setInterval(countdown, 100);
+
+		}
+
+		function countdown() {
+			let elapsed = Date.now() - challengeStart;
+			if (elapsed > 60000) {
+				$('.clock').html(0);
+				$('.clock').fadeOut(250);
+				gameEnd();
+				clearInterval(timer);
+			} else {
+				let remaining = Math.round(60 - elapsed / 1000);
+				$('.clock').html(remaining);
+			}
+		}
+
+		function gameEnd() {
+			updateScore(true);
+			$('#scoreboard').modal('show');
+			started = false;
+			$('.target').remove();
+			$('#stop').fadeOut(250);
+			$('.start').fadeIn(250);
 		}
 
 		$(document).on('click', '.target', function () {
@@ -169,38 +215,37 @@
 			row = [];
 		});
 
-		$('#start').on('click', function (e) {
+		$('.start').on('click', function (e) {
 			e.stopPropagation();
 			started = true;
 			spawnTarget();
-			$(this).hide();
+			$('.start').hide();
 			$('#stop').fadeIn(250);
+			if (this.id == 'challenge') {
+				beginChallenge();
+			}
 		});
 
 		$('#stop').on('click', function (e) {
 			e.stopPropagation();
-			$('#scoreboard').modal('show');
-			started = false;
-			$(this).hide();
-			$('.target').remove();
-			$('#start').fadeIn(250);
-		})
+			gameEnd();
+		});
 
 		$('#download').on('click', function () {
 			download();
 		});
 
 		$('#reset').on('click', function () {
-			$('.accuracy').html(0);
-			$('.hits').html(1);
-			$('.misses').html(1);
-			$('.score').html(0);
 			data = [];
 			row = [];
 			score = 0;
 			hits = 0;
 			shots = 0;
 			totalTtk = 0;
+			$('.accuracy').html(0);
+			$('.hits').html(0);
+			$('.misses').html(0);
+			$('.score').html(0);
 		});
 
 		function download() {
