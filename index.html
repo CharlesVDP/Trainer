@@ -64,10 +64,14 @@
 				-ms-user-select: none;
 					user-select: none;
 		}
+
+		.shadow{
+			box-shadow: 0 .5rem 1rem rgba(0,0,0,.3) !important;
+		}
 	</style>
 </head>
 <body>
-	<div class="modal fade" id="scoreboard" tabindex="-1" role="dialog">
+	<div class="modal fade shadow" id="scoreboard" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				
@@ -95,9 +99,9 @@
 				<h5 class="text-secondary noselect">Hits: <span class="hits">0</span></h5>
 			</div>
 			<div class="col-auto">
-				<button id="start" class="btn btn-sm btn-outline-info custom-border-radius start">Start</button>
-				<button id="challenge" class="btn btn-sm btn-outline-primary custom-border-radius start">Challenge</button>
-				<button id="stop" class="btn btn-sm btn-outline-danger custom-border-radius">Stop</button>
+				<button id="start" class="shadow btn btn-sm btn-outline-info custom-border-radius start noselect">Start</button>
+				<button id="challenge" class="shadow btn btn-sm btn-outline-primary custom-border-radius start noselect">Challenge</button>
+				<button id="stop" class="shadow btn btn-sm btn-outline-danger custom-border-radius noselect">Stop</button>
 			</div>
 			<div class="col text-right">
 				<h5 class="text-secondary noselect">Accuracy: <span class="accuracy">0</span>%</h5>
@@ -131,7 +135,7 @@
 		function spawnTarget() {
 			let x = (Math.random() * 95).toFixed(0);
 			let y = Math.max(10, (Math.random() * 95).toFixed(0));
-			$('body').append(`<div class="target bg-info crosshair" style="left:${x}vw; top:${y}vh;"></div>`);
+			$('body').append(`<div class="target bg-info crosshair shadow" style="left:${x}vw; top:${y}vh;"></div>`);
 			$('.target').fadeIn(10);
 			start = Date.now();
 		}
