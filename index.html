@@ -169,7 +169,7 @@
 		function countdown() {
 			debugger;
 			let elapsed = Date.now() - challengeStart;
-			if (elapsed > 5000) {
+			if (elapsed > 60000) {
 				$('.clock').html(0);
 				$('.clock').addClass('d-none');
 				gameEnd();
