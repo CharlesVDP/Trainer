@@ -39,8 +39,7 @@
 		}
 
 		.crosshair {
-			cursor: crosshair;
-			cursor: url(crosshairs/default.png);
+			cursor: url(crosshairs/default.png), crosshair;
 		}
 
 		.header{
@@ -134,7 +133,7 @@
 		}
 
 		$(document).on('click', '.target', function () {
-			let audio = new Audio('sounds/hitmarker.ogg');
+			let audio = new Audio('sounds/owhitmarker.mp3');
 			audio.play();
 			$(this).fadeOut(200);
 			$(this).remove();
