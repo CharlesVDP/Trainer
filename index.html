@@ -15,6 +15,7 @@
 			position: fixed;
 			display: none;
 			border-radius: 5vmin;
+			z-index: 9001;
 		}
 
 		body {
@@ -39,7 +40,7 @@
 		}
 
 		.crosshair {
-			cursor: url(crosshairs/default.png), crosshair;
+			cursor: crosshair;
 		}
 
 		.header{
@@ -108,7 +109,7 @@
 			let x = (Math.random() * 95).toFixed(0);
 			let y = Math.max(10, (Math.random() * 95).toFixed(0));
 			$('body').append(`<div class="target bg-info crosshair" style="left:${x}vw; top:${y}vh;"></div>`);
-			$('.target').fadeIn(50);
+			$('.target').fadeIn(10);
 			start = Date.now();
 		}
 
@@ -134,9 +135,12 @@
 
 		$(document).on('click', '.target', function () {
 			let audio = new Audio('sounds/owhitmarker.mp3');
+			let me = $(this);
 			audio.play();
-			$(this).fadeOut(200);
-			$(this).remove();
+			me.removeClass('bg-info').addClass('bg-danger');
+			me.fadeOut(200, function () {
+				me.remove();
+			});
 			hits++;
 			updateTimeToKill();
 			updateScore();
