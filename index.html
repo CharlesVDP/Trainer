@@ -39,7 +39,8 @@
 		}
 
 		.crosshair {
-			cursor: url(https://charlesvdp.github.io/Trainer/crosshairs/default.png);
+			cursor: auto;
+			cursor: url(crosshairs/default.png);
 		}
 
 		.header{
@@ -133,7 +134,7 @@
 		}
 
 		$(document).on('click', '.target', function () {
-			let audio = new Audio('https://charlesvdp.github.io/Trainer/sounds/hitmarker.ogg');
+			let audio = new Audio('sounds/hitmarker.ogg');
 			audio.play();
 			$(this).fadeOut(200);
 			$(this).remove();
